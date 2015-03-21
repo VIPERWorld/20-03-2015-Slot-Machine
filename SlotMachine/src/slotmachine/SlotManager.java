@@ -5,14 +5,8 @@
  */
 package slotmachine;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -20,31 +14,19 @@ import javax.swing.ImageIcon;
  */
 public class SlotManager {
 
-    private Slot slot1;
-    private Slot slot2;
-    private Slot slot3;
+    private final Slot slot1;
+    private final Slot slot2;
+    private final Slot slot3;
+    Random r;
 
     public SlotManager() throws IOException {
-
-        slot1 = new Slot(getRandomImage(), slot2);
-        slot2 = new Slot(getRandomImage(), slot3);
-        slot3 = new Slot(getRandomImage(), null);
+        this.r = new Random();
         
         
-        Icon i = new ImageIcon(ImageIO.read(getClass().getResource("/GUI/Images/Banana.png")));
- 
+        slot1 = new Slot(r.nextInt(getRandomNumber()));
+        slot2 = new Slot(r.nextInt(getRandomNumber()));
+        slot3 = new Slot(r.nextInt(getRandomNumber()));
 
-    }
-
-    private BufferedImage getRandomImage() {
-        String[] imagePaths = new String[]{"Banana.png", "Bar.png", "BigWin.png", "Cherry.png", "Grape.png", "Lemon.png", "Lucky7.png", "Melon.png", "Orange.png"};
-        Random r = new Random();
-        try {
-            return ImageIO.read(getClass().getResource("/GUI/Images/" + imagePaths[r.nextInt(imagePaths.length)]));
-        } catch (IOException ex) {
-            Logger.getLogger(SlotManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
     }
 
     public Slot getSlot1() {
@@ -59,22 +41,32 @@ public class SlotManager {
         return slot3;
     }
 
-    void spin() {
-        slot1.setIcon(getRandomImage());
-        slot2.setIcon(getRandomImage());
-        slot3.setIcon(getRandomImage());
+    public void spin() {
+        if (!slot1.isHold()) {
+            slot1.setRandomImage(getRandomNumber());
+        }
+        if (!slot2.isHold()) {
+            slot2.setRandomImage(getRandomNumber());
+        }
+        if (!slot3.isHold()) {
+            slot3.setRandomImage(getRandomNumber());
+        }
 
-        checkCombos();
+        System.out.println(checkCombos());
 
     }
 
     public String checkCombos() {
-        if (slot1.equals(slot2.getIcon()) && slot2.equals(slot3.getIcon())) {
+        if (slot1.equals(slot2) && slot2.equals(slot3)) {
             return "Three in a row!";
-        } else if (slot1.equals(slot2.getIcon()) || slot2.equals(slot3.getIcon())) {
+        } else if (slot1.equals(slot2) || slot2.equals(slot3)) {
             return "Two in a row!";
         }
         return "None in a row";
+    }
+    
+    private int getRandomNumber(){
+        return r.nextInt(Slot.getImagePaths().length);
     }
 
 }

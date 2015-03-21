@@ -5,17 +5,25 @@
  */
 package GUI;
 
+import slotmachine.SlotManager;
+
 /**
  *
  * @author Asma
  */
 public class SlotGUI extends javax.swing.JFrame {
 
+    private final SlotManager sm;
+
     /**
      * Creates new form SlotGUI
      */
-    public SlotGUI() {
+    public SlotGUI(SlotManager sm) {
+        this.sm = sm;
         initComponents();
+        this.slot1.setIcon(sm.getSlot1().getIcon());
+        this.slot2.setIcon(sm.getSlot2().getIcon());
+        this.slot3.setIcon(sm.getSlot3().getIcon());
     }
 
     /**
@@ -27,117 +35,139 @@ public class SlotGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel3 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
-        jToggleButton3 = new javax.swing.JToggleButton();
+        slot1Hold = new javax.swing.JToggleButton();
+        slot2Hold = new javax.swing.JToggleButton();
+        slot3Hold = new javax.swing.JToggleButton();
         jButton1 = new javax.swing.JButton();
+        slot3 = new javax.swing.JLabel();
+        slot1 = new javax.swing.JLabel();
+        slot2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Slot Machines");
         setBackground(new java.awt.Color(255, 102, 102));
+        setForeground(java.awt.Color.black);
         setPreferredSize(new java.awt.Dimension(800, 500));
         setResizable(false);
 
-        jPanel3.setName("slot2"); // NOI18N
+        slot1Hold.setLabel("Hold");
+        slot1Hold.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                slot1HoldActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        slot2Hold.setLabel("Hold");
+        slot2Hold.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                slot2HoldActionPerformed(evt);
+            }
+        });
 
-        jPanel2.setName("slot3"); // NOI18N
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 138, Short.MAX_VALUE)
-        );
-
-        jPanel1.setName("slot1"); // NOI18N
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jToggleButton1.setLabel("Hold");
-
-        jToggleButton2.setLabel("Hold");
-
-        jToggleButton3.setActionCommand("Hold");
-        jToggleButton3.setLabel("Hold");
+        slot3Hold.setActionCommand("Hold");
+        slot3Hold.setLabel("Hold");
+        slot3Hold.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                slot3HoldActionPerformed(evt);
+            }
+        });
 
         jButton1.setLabel("Play");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        slot3.setText("jLabel2");
+
+        slot1.setText("slot1");
+
+        slot2.setText("jLabel2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(87, 87, 87)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jToggleButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(87, 87, 87)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jToggleButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(255, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(255, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(slot1Hold, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(130, 130, 130)
+                        .addComponent(slot2Hold, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(139, 139, 139)
+                        .addComponent(slot3Hold, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(slot1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(100, 100, 100)
+                        .addComponent(slot2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(100, 100, 100)
+                        .addComponent(slot3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(287, 287, 287)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(216, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(120, 120, 120)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(slot3, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(slot1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(slot2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jToggleButton1)
-                        .addComponent(jToggleButton2))
-                    .addComponent(jToggleButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(slot3Hold)
+                    .addComponent(slot2Hold)
+                    .addComponent(slot1Hold))
+                .addGap(55, 55, 55)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
-        jToggleButton1.getAccessibleContext().setAccessibleName("slot1Hold");
-        jToggleButton2.getAccessibleContext().setAccessibleName("slot2Hold");
-        jToggleButton3.getAccessibleContext().setAccessibleName("slot3Hold");
+        slot1Hold.getAccessibleContext().setAccessibleName("slot1Hold");
+        slot2Hold.getAccessibleContext().setAccessibleName("slot2Hold");
+        slot3Hold.getAccessibleContext().setAccessibleName("slot3Hold");
         jButton1.getAccessibleContext().setAccessibleName("playButton");
         jButton1.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        sm.spin();
+        this.slot1.setIcon(sm.getSlot1().getIcon());
+        this.slot2.setIcon(sm.getSlot2().getIcon());
+        this.slot3.setIcon(sm.getSlot3().getIcon());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void slot1HoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slot1HoldActionPerformed
+        if (sm.getSlot1().isHold()) {
+            sm.getSlot1().setHold(false);
+            return;
+        }
+        sm.getSlot1().setHold(true);
+    }//GEN-LAST:event_slot1HoldActionPerformed
+
+    private void slot2HoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slot2HoldActionPerformed
+        if (sm.getSlot2().isHold()) {
+            sm.getSlot2().setHold(false);
+            return;
+        }
+        sm.getSlot2().setHold(true);
+    }//GEN-LAST:event_slot2HoldActionPerformed
+
+    private void slot3HoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slot3HoldActionPerformed
+        if (sm.getSlot3().isHold()) {
+            sm.getSlot3().setHold(false);
+            return;
+        }
+        sm.getSlot3().setHold(true);
+    }//GEN-LAST:event_slot3HoldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,11 +175,12 @@ public class SlotGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JToggleButton jToggleButton3;
+    private javax.swing.JLabel slot1;
+    private javax.swing.JToggleButton slot1Hold;
+    private javax.swing.JLabel slot2;
+    private javax.swing.JToggleButton slot2Hold;
+    private javax.swing.JLabel slot3;
+    private javax.swing.JToggleButton slot3Hold;
     // End of variables declaration//GEN-END:variables
+
 }

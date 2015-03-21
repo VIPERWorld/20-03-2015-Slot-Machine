@@ -6,9 +6,12 @@
 package Starter;
 
 import GUI.SlotGUI;
+import java.awt.Color;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import slotmachine.SlotManager;
 
@@ -24,22 +27,16 @@ public class SlotMachine {
     public static void main(String[] args) {
         try {
             SlotManager sm = new SlotManager();
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    SlotGUI sgui = new SlotGUI(sm);
+                    sgui.setLocationRelativeTo(null);
+                    sgui.setVisible(true);
+                }
+            });
         } catch (IOException ex) {
             Logger.getLogger(SlotMachine.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                SlotGUI sgui = new SlotGUI();
-                sgui.setLocationRelativeTo(null);
-                sgui.setTitle("Slot Machines");
-                sgui.setVisible(true);
-            }
-        });
-        
-        
     }
-    
 }

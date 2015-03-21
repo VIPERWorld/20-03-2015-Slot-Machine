@@ -5,8 +5,6 @@
  */
 package slotmachine;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.util.Objects;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -17,23 +15,65 @@ import javax.swing.ImageIcon;
  */
 public class Slot {
 
-    private Image icon;
-    private boolean hold = false;
+    private static final String[] imagePaths = new String[]{"Banana.png", "Bar.png", "BigWin.png", "Cherry.png", "Grape.png", "Lemon.png", "Lucky7.png", "Melon.png", "Orange.png"};
 
-    public Slot(BufferedImage icon, Slot slotToRight) {
-        this.icon = icon;
+    public static String[] getImagePaths() {
+        return imagePaths;
     }
 
-    public Image getIcon() {
+    private Icon icon;
+    private boolean hold = false;
+    private String imageName;
+
+    public Slot(int i) {
+        setRandomImage(i);
+    }
+
+    public Icon getIcon() {
         return icon;
     }
 
     public void setHold(boolean hold) {
         this.hold = hold;
     }
-    
-    public void setIcon(BufferedImage icon) {
-        this.icon = icon;
+
+    public final void setRandomImage(int i) {
+            this.icon = new ImageIcon(getClass().getResource("/GUI/Images/" + imagePaths[i]));
+            imageName = imagePaths[i];
     }
+
+    public void setSpecificImage(int i) {
+        this.icon = new ImageIcon(getClass().getResource("/GUI/Images/" + imagePaths[i]));
+        imageName = imagePaths[i];
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(this.imageName);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Slot other = (Slot) obj;
+        if (!Objects.equals(this.imageName, other.imageName)) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isHold() {
+        return hold;
+    }
+
+    
+    
 
 }

@@ -8,7 +8,6 @@ package slotmachine;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -42,25 +41,17 @@ public class SlotManagerTest {
 
     @Test
     public void testTwoInARow() {
-        try {
-            sm.getSlot1().setIcon(ImageIO.read(getClass().getResource("/GUI/Images/Banana.png")));
-            sm.getSlot2().setIcon(ImageIO.read(getClass().getResource("/GUI/Images/Banana.png")));
-            sm.getSlot3().setIcon(ImageIO.read(getClass().getResource("/GUI/Images/Cherry.png")));
-        } catch (IOException ex) {
-            Logger.getLogger(SlotManagerTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        sm.getSlot1().setSpecificImage(0);
+        sm.getSlot2().setSpecificImage(0);
+        sm.getSlot3().setSpecificImage(3);
         assertEquals("Two in a row!", sm.checkCombos());
     }
 
     @Test
     public void testThreeInARow() {
-        try {
-            sm.getSlot1().setIcon(ImageIO.read(getClass().getResource("/GUI/Images/Banana.png")));
-            sm.getSlot2().setIcon(ImageIO.read(getClass().getResource("/GUI/Images/Banana.png")));
-            sm.getSlot3().setIcon(ImageIO.read(getClass().getResource("/GUI/Images/Banana.png")));
-        } catch (IOException ex) {
-            Logger.getLogger(SlotManagerTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        sm.getSlot1().setSpecificImage(0);
+        sm.getSlot2().setSpecificImage(0);
+        sm.getSlot3().setSpecificImage(0);
         assertEquals("Three in a row!", sm.checkCombos());
     }
 
