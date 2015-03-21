@@ -5,9 +5,12 @@
  */
 package slotmachine;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+
+import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
@@ -15,33 +18,50 @@ import static org.junit.Assert.*;
  * @author Asma
  */
 public class SlotManagerTest {
-    
+
+    SlotManager sm;
+
     @Before
     public void setUp() {
+        try {
+            sm = new SlotManager();
+        } catch (IOException ex) {
+            Logger.getLogger(SlotManagerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
+
     @After
     public void tearDown() {
+        sm = null;
     }
 
     @Test
     public void testSpin() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        sm.spin();
     }
-    
+
     @Test
     public void testTwoInARow() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        try {
+            sm.getSlot1().setIcon(ImageIO.read(getClass().getResource("/GUI/Images/Banana.png")));
+            sm.getSlot2().setIcon(ImageIO.read(getClass().getResource("/GUI/Images/Banana.png")));
+            sm.getSlot3().setIcon(ImageIO.read(getClass().getResource("/GUI/Images/Cherry.png")));
+        } catch (IOException ex) {
+            Logger.getLogger(SlotManagerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        assertEquals("Two in a row!", sm.checkCombos());
     }
-    
+
     @Test
     public void testThreeInARow() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        try {
+            sm.getSlot1().setIcon(ImageIO.read(getClass().getResource("/GUI/Images/Banana.png")));
+            sm.getSlot2().setIcon(ImageIO.read(getClass().getResource("/GUI/Images/Banana.png")));
+            sm.getSlot3().setIcon(ImageIO.read(getClass().getResource("/GUI/Images/Banana.png")));
+        } catch (IOException ex) {
+            Logger.getLogger(SlotManagerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        assertEquals("Three in a row!", sm.checkCombos());
     }
-    
-    
-    
+
 }

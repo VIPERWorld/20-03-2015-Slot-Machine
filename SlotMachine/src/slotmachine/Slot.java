@@ -5,29 +5,35 @@
  */
 package slotmachine;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author Asma
  */
 public class Slot {
-    private final BufferedImage icon;
-    private final Slot slotToRight;
+
+    private Image icon;
+    private boolean hold = false;
 
     public Slot(BufferedImage icon, Slot slotToRight) {
         this.icon = icon;
-        this.slotToRight = slotToRight;
     }
 
-    public BufferedImage getIcon() {
+    public Image getIcon() {
         return icon;
     }
 
-    public Slot getSlotToRight() {
-        return slotToRight;
+    public void setHold(boolean hold) {
+        this.hold = hold;
     }
     
-    
-    
+    public void setIcon(BufferedImage icon) {
+        this.icon = icon;
+    }
+
 }

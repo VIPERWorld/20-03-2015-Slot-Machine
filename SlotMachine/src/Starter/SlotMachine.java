@@ -5,6 +5,13 @@
  */
 package Starter;
 
+import GUI.SlotGUI;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
+import slotmachine.SlotManager;
+
 /**
  *
  * @author Asma
@@ -15,7 +22,24 @@ public class SlotMachine {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        try {
+            SlotManager sm = new SlotManager();
+        } catch (IOException ex) {
+            Logger.getLogger(SlotMachine.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                SlotGUI sgui = new SlotGUI();
+                sgui.setLocationRelativeTo(null);
+                sgui.setTitle("Slot Machines");
+                sgui.setVisible(true);
+            }
+        });
+        
+        
     }
     
 }
