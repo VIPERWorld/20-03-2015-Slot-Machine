@@ -60,18 +60,18 @@ public class SlotManager {
 
     }
 
-    public boolean checkCombos() {
+    public String checkCombos() {
         if (this.hasThreeInARow()) {
             System.out.println("Three in a row");
             sp.playSound(soundNames.THREE_IN_A_ROW);
-            return true;
+            return "Three in a row!";
 
         } else if (hasTwoInARow()) {
             System.out.println("Two in a row");
             sp.playSound(soundNames.TWO_IN_A_ROW);
-            return true;
+            return "Two in a row!";
         }
-        return false;
+       return "None in a row!";
     }
 
     private int getRandomNumber() {
@@ -87,7 +87,7 @@ public class SlotManager {
     }
 
     private boolean hasTwoInARow() {
-        return getSlot1().equals(getSlot2()) || getSlot2().equals(getSlot3()) && getSlot3().getImageName().equals("Cherry.png");
+        return (getSlot1().equals(getSlot2()) || getSlot2().equals(getSlot3())) && getSlot2().getImageName().equals("Cherry.png");
     }
 
 }

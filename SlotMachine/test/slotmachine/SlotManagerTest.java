@@ -80,14 +80,42 @@ public class SlotManagerTest {
     
     @Test
     public void testEquals(){
-        sm.getSlot1().setSpecificImage(1);
-        sm.getSlot2().setSpecificImage(1);
-        sm.getSlot3().setSpecificImage(3);
+        sm.getSlot1().setSpecificImage(0);
+        sm.getSlot2().setSpecificImage(0);
+        sm.getSlot3().setSpecificImage(2);
         sm.getSlot1().setHold(true);
         
-        assertFalse(sm.checkCombos());
+        assertEquals("None in a row!", sm.checkCombos());
         sm.getSlot1().setHold(false);
-        assertTrue(sm.checkCombos());
+        assertEquals("Two in a row!", sm.checkCombos());
+    }
+    
+    @Test
+    public void testHoldEquals(){
+        sm.getSlot1().setSpecificImage(0);
+        sm.getSlot2().setSpecificImage(0);
+        sm.getSlot3().setSpecificImage(2);
+        
+        assertEquals("None in a row!", sm.checkCombos());
+        sm.getSlot1().setHold(true);
+        sm.getSlot2().setHold(true);
+        assertEquals("None in a row!", sm.checkCombos());
+        sm.getSlot3().setSpecificImage(1);
+        assertEquals("None in a row!", sm.checkCombos());
+        sm.getSlot1().setHold(false);
+        sm.getSlot2().setHold(false);
+        assertEquals("None in a row!", sm.checkCombos());
+        
+        sm.getSlot1().setSpecificImage(1);
+        sm.getSlot2().setSpecificImage(1);
+        sm.getSlot3().setSpecificImage(2);
+        assertEquals("None in a row!", sm.checkCombos());
+        sm.getSlot1().setHold(true);
+        sm.getSlot2().setHold(true);
+        assertEquals("None in a row!", sm.checkCombos());
+        sm.getSlot3().setSpecificImage(1);
+        assertEquals("Three in a row!", sm.checkCombos());
+        
     }
 
 }
