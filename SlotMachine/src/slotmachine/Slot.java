@@ -25,6 +25,10 @@ public class Slot {
     private boolean hold = false;
     private String imageName;
 
+    public String getImageName() {
+        return imageName;
+    }
+
     public Slot(int i) {
         setRandomImage(i);
     }
@@ -38,8 +42,7 @@ public class Slot {
     }
 
     public final void setRandomImage(int i) {
-            this.icon = new ImageIcon(getClass().getResource("/GUI/Images/" + imagePaths[i]));
-            imageName = imagePaths[i];
+        setSpecificImage(i);
     }
 
     public void setSpecificImage(int i) {
@@ -63,17 +66,14 @@ public class Slot {
             return false;
         }
         final Slot other = (Slot) obj;
-        if (!Objects.equals(this.imageName, other.imageName)) {
+        if (!Objects.equals(this.getImageName(), other.getImageName())) {
             return false;
         }
-        return true;
+        return this.isHold() == ((Slot)obj).isHold();
     }
 
     public boolean isHold() {
         return hold;
     }
-
-    
-    
 
 }
