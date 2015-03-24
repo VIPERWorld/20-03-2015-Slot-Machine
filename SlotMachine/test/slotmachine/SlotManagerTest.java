@@ -83,11 +83,10 @@ public class SlotManagerTest {
         sm.getSlot1().setSpecificImage(0);
         sm.getSlot2().setSpecificImage(0);
         sm.getSlot3().setSpecificImage(2);
-        sm.getSlot1().setHold(true);
         
-        assertEquals("None in a row!", sm.checkCombos());
-        sm.getSlot1().setHold(false);
         assertEquals("Two in a row!", sm.checkCombos());
+        sm.getSlot3().setSpecificImage(0);
+        assertEquals("Three in a row!", sm.checkCombos());
     }
     
     @Test
