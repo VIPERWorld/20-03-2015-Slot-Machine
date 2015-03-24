@@ -15,3 +15,10 @@ Enums,
 
 Exception handling.
 
+
+
+<h3> TODO </h3>
+
+Improve combination checking:
+
+Two held slots should result in a 3-combo if the last slot rolls to the correct icon.
