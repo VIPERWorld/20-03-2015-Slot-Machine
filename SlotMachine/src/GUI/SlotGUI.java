@@ -9,7 +9,7 @@ import slotmachine.SlotManager;
 
 /**
  *
- * @author Asma
+ * @author Loek
  */
 public class SlotGUI extends javax.swing.JFrame {
 

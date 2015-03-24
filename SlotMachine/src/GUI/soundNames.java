@@ -9,14 +9,14 @@ import java.net.URL;
 
 /**
  *
- * @author Asma
+ * @author Loek
  */
 public enum soundNames {
 
-    TWO_IN_A_ROW("Multicast_x3.wav"),
-    THREE_IN_A_ROW("Multicast_x4.wav");
+    TWO_IN_A_ROW("Combo_x2.wav"),
+    THREE_IN_A_ROW("Combo_x3.wav");
 
-    private String fileName;
+    private final String fileName;
 
     public URL getPath() {
         return getClass().getResource("/GUI/Sounds/" + fileName);

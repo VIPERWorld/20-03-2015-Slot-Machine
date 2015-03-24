@@ -6,18 +6,15 @@
 package Starter;
 
 import GUI.SlotGUI;
-import java.awt.Color;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Icon;
-import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import slotmachine.SlotManager;
 
 /**
  *
- * @author Asma
+ * @author Loek
  */
 public class SlotMachine {
 

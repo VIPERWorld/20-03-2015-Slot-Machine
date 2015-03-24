@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Asma
+ * @author Loek
  */
 public class Slot {
 
@@ -25,12 +25,12 @@ public class Slot {
     private boolean hold = false;
     private String imageName;
 
-    public String getImageName() {
-        return imageName;
-    }
-
     public Slot(int i) {
         setRandomImage(i);
+    }
+
+    public String getImageName() {
+        return imageName;
     }
 
     public Icon getIcon() {
@@ -69,7 +69,7 @@ public class Slot {
         if (!Objects.equals(this.getImageName(), other.getImageName())) {
             return false;
         }
-        return this.isHold() == ((Slot)obj).isHold();
+        return this.isHold() == ((Slot) obj).isHold();
     }
 
     public boolean isHold() {

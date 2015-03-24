@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package slotmachine;
 
 import GUI.SoundPlayer;
@@ -13,7 +8,8 @@ import java.util.Random;
 
 /**
  *
- * @author Asma
+ * SlotManager manages 3 slots. It makes them spin, checks for combos and tells SoundPlayer to play appropiate sounds.
+ * @author Loek
  */
 public class SlotManager {
 
@@ -21,8 +17,12 @@ public class SlotManager {
     private final Slot slot2;
     private final Slot slot3;
     private final SoundPlayer sp;
-    Random r;
+    private Random r;
 
+    /**
+     * Initializes 3 slots with random images, SoundPlayer and Random.
+     * @throws IOException 
+     */
     public SlotManager() throws IOException {
         this.r = new Random();
         sp = new SoundPlayer();
@@ -45,6 +45,9 @@ public class SlotManager {
         return slot3;
     }
 
+    /**
+     * Checks slot if they are set to hold and spins them if not.
+     */
     public void spin() {
         if (!slot1.isHold()) {
             slot1.setRandomImage(getRandomNumber());
@@ -60,14 +63,16 @@ public class SlotManager {
 
     }
 
+    /**
+     * Checks slots if they are equal and if they have the right icons, returns a string based on the combo.
+     * @return a string based on the combo.
+     */
     public String checkCombos() {
         if (this.hasThreeInARow()) {
-            System.out.println("Three in a row");
             sp.playSound(soundNames.THREE_IN_A_ROW);
             return "Three in a row!";
 
         } else if (hasTwoInARow()) {
-            System.out.println("Two in a row");
             sp.playSound(soundNames.TWO_IN_A_ROW);
             return "Two in a row!";
         }
