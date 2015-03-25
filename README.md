@@ -14,12 +14,3 @@ Beginner level coding.
 
 </ul>
 
-
-
-<h3> TODO </h3>
-
-<ol>
-<li>Correct image sizes</li>
-<li>Correct sound volumes</li>
-<li>Flashy GUI </li>
-</ol>
