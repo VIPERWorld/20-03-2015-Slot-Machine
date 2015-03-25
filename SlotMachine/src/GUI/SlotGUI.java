@@ -6,10 +6,13 @@
 package GUI;
 
 import Starter.SlotMachine;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JToggleButton;
 import javax.swing.Timer;
 
 /**
@@ -33,7 +36,7 @@ public class SlotGUI extends javax.swing.JFrame {
         this.slot1.setIcon(sm.getSlotManager().getSlot1().getIcon());
         this.slot2.setIcon(sm.getSlotManager().getSlot2().getIcon());
         this.slot3.setIcon(sm.getSlotManager().getSlot3().getIcon());
-        
+
         stopwatch = new Timer(3000, new MyTimerListener(playButton));
         stopwatch.setRepeats(false);
         this.playButton.addActionListener((ActionEvent e) -> {
@@ -45,8 +48,26 @@ public class SlotGUI extends javax.swing.JFrame {
     public JButton getPlayButton() {
         return playButton;
     }
+
+    public void click(AbstractButton button) {
+        button.doClick();
+    }
+
+    public JToggleButton getSlot1Hold() {
+        return slot1Hold;
+    }
+
+    public JToggleButton getSlot2Hold() {
+        return slot2Hold;
+    }
+
+    public JToggleButton getSlot3Hold() {
+        return slot3Hold;
+    }
+
     
     static class MyTimerListener implements ActionListener {
+
         JComponent target;
 
         MyTimerListener(JComponent target) {
@@ -59,7 +80,6 @@ public class SlotGUI extends javax.swing.JFrame {
         }
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

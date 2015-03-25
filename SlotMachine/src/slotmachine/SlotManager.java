@@ -9,10 +9,12 @@ import javax.swing.Timer;
 
 /**
  *
- * SlotManager manages 3 slots. It makes them spin, checks for combos and tells SoundPlayer to play appropiate sounds.
+ * SlotManager manages 3 slots. It makes them spin, checks for combos and tells
+ * SoundPlayer to play appropiate sounds.
+ *
  * @author Loek
  */
-public class SlotManager{
+public class SlotManager {
 
     private final Slot slot1;
     private final Slot slot2;
@@ -22,8 +24,9 @@ public class SlotManager{
 
     /**
      * Initializes 3 slots with random images, SoundPlayer and Random.
+     *
      * @param sm
-     * @throws IOException 
+     * @throws IOException
      */
     public SlotManager(SlotMachine sm) throws IOException {
         this.r = new Random();
@@ -53,21 +56,29 @@ public class SlotManager{
     public void spin() {
         if (!slot1.isHold()) {
             slot1.setRandomImage(getRandomNumber());
+        } else {
+            slotMachine.getSlotGUI().click(slotMachine.getSlotGUI().getSlot1Hold());
         }
         if (!slot2.isHold()) {
             slot2.setRandomImage(getRandomNumber());
+        } else {
+            slotMachine.getSlotGUI().click(slotMachine.getSlotGUI().getSlot2Hold());
         }
         if (!slot3.isHold()) {
             slot3.setRandomImage(getRandomNumber());
+        } else {
+            slotMachine.getSlotGUI().click(slotMachine.getSlotGUI().getSlot3Hold());
+
         }
 
         checkCombos();
-        
 
     }
 
     /**
-     * Checks slots if they are equal and if they have the right icons, returns a string based on the combo.
+     * Checks slots if they are equal and if they have the right icons, returns
+     * a string based on the combo.
+     *
      * @return a string based on the combo.
      */
     public String checkCombos() {
@@ -80,7 +91,7 @@ public class SlotManager{
             return "Two in a row!";
         }
         slotMachine.getSlotGUI().getPlayButton().setEnabled(true);
-       return "None in a row!";
+        return "None in a row!";
     }
 
     private int getRandomNumber() {

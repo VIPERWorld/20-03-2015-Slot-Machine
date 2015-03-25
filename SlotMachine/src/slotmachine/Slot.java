@@ -69,7 +69,7 @@ public class Slot {
         if (!Objects.equals(this.getImageName(), other.getImageName())) {
             return false;
         }
-        return this.isHold() == ((Slot) obj).isHold();
+        return !this.isHold() && !((Slot)obj).isHold();
     }
 
     public boolean isHold() {
