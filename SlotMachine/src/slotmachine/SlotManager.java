@@ -1,31 +1,33 @@
 package slotmachine;
 
-import GUI.SoundPlayer;
-import GUI.soundNames;
+import GUI.SoundNames;
+import Starter.SlotMachine;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.Timer;
 
 /**
  *
  * SlotManager manages 3 slots. It makes them spin, checks for combos and tells SoundPlayer to play appropiate sounds.
  * @author Loek
  */
-public class SlotManager {
+public class SlotManager{
 
     private final Slot slot1;
     private final Slot slot2;
     private final Slot slot3;
-    private final SoundPlayer sp;
-    private Random r;
+    private final SlotMachine slotMachine;
+    private final Random r;
 
     /**
      * Initializes 3 slots with random images, SoundPlayer and Random.
+     * @param sm
      * @throws IOException 
      */
-    public SlotManager() throws IOException {
+    public SlotManager(SlotMachine sm) throws IOException {
         this.r = new Random();
-        sp = new SoundPlayer();
+        slotMachine = sm;
 
         slot1 = new Slot(getRandomNumber());
         slot2 = new Slot(getRandomNumber());
@@ -60,6 +62,7 @@ public class SlotManager {
         }
 
         checkCombos();
+        
 
     }
 
@@ -69,13 +72,14 @@ public class SlotManager {
      */
     public String checkCombos() {
         if (this.hasThreeInARow()) {
-            sp.playSound(soundNames.THREE_IN_A_ROW);
+            slotMachine.getSoundPlayer().playSound(SoundNames.THREE_IN_A_ROW);
             return "Three in a row!";
 
         } else if (hasTwoInARow()) {
-            sp.playSound(soundNames.TWO_IN_A_ROW);
+            slotMachine.getSoundPlayer().playSound(SoundNames.TWO_IN_A_ROW);
             return "Two in a row!";
         }
+        slotMachine.getSlotGUI().getPlayButton().setEnabled(true);
        return "None in a row!";
     }
 
@@ -88,6 +92,7 @@ public class SlotManager {
         validIcons.add("Lucky7.png");
         validIcons.add("BigWin.png");
         validIcons.add("Bar.png");
+        validIcons.add("Cherry.png");
         return getSlot1().equals(getSlot2()) && getSlot2().equals(getSlot3()) && validIcons.contains(getSlot3().getImageName());
     }
 
