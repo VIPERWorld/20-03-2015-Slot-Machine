@@ -51,7 +51,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="287" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="200" max="-2" attributes="0"/>
+                      <Component id="playButton" min="-2" pref="200" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="216" max="32767" attributes="0"/>
@@ -74,7 +74,7 @@
                   <Component id="slot1Hold" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="50" max="-2" attributes="0"/>
+              <Component id="playButton" min="-2" pref="50" max="-2" attributes="0"/>
               <EmptySpace pref="108" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -115,7 +115,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="slot3HoldActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="playButton">
       <Properties>
         <Property name="label" type="java.lang.String" value="Play"/>
       </Properties>
@@ -124,7 +124,7 @@
         <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
       </AccessibilityProperties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="playButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="slot3">

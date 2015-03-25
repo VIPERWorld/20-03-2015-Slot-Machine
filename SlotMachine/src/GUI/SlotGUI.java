@@ -5,27 +5,61 @@
  */
 package GUI;
 
-import slotmachine.SlotManager;
+import Starter.SlotMachine;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.Timer;
 
 /**
  *
  * @author Loek
  */
+@SuppressWarnings("serial")
 public class SlotGUI extends javax.swing.JFrame {
 
-    private final SlotManager sm;
+    private final SlotMachine slotMachine;
+    private Timer stopwatch;
 
     /**
      * Creates new form SlotGUI
+     *
+     * @param sm
      */
-    public SlotGUI(SlotManager sm) {
-        this.sm = sm;
+    public SlotGUI(SlotMachine sm) {
+        this.slotMachine = sm;
         initComponents();
-        this.slot1.setIcon(sm.getSlot1().getIcon());
-        this.slot2.setIcon(sm.getSlot2().getIcon());
-        this.slot3.setIcon(sm.getSlot3().getIcon());
+        this.slot1.setIcon(sm.getSlotManager().getSlot1().getIcon());
+        this.slot2.setIcon(sm.getSlotManager().getSlot2().getIcon());
+        this.slot3.setIcon(sm.getSlotManager().getSlot3().getIcon());
+        
+        stopwatch = new Timer(3000, new MyTimerListener(playButton));
+        stopwatch.setRepeats(false);
+        this.playButton.addActionListener((ActionEvent e) -> {
+            playButton.setEnabled(false);
+            stopwatch.start();
+        });
     }
 
+    public JButton getPlayButton() {
+        return playButton;
+    }
+    
+    static class MyTimerListener implements ActionListener {
+        JComponent target;
+
+        MyTimerListener(JComponent target) {
+            this.target = target;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            target.setEnabled(true);
+        }
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,7 +72,7 @@ public class SlotGUI extends javax.swing.JFrame {
         slot1Hold = new javax.swing.JToggleButton();
         slot2Hold = new javax.swing.JToggleButton();
         slot3Hold = new javax.swing.JToggleButton();
-        jButton1 = new javax.swing.JButton();
+        playButton = new javax.swing.JButton();
         slot3 = new javax.swing.JLabel();
         slot1 = new javax.swing.JLabel();
         slot2 = new javax.swing.JLabel();
@@ -47,7 +81,6 @@ public class SlotGUI extends javax.swing.JFrame {
         setTitle("Slot Machines");
         setBackground(new java.awt.Color(255, 102, 102));
         setForeground(java.awt.Color.black);
-        setPreferredSize(new java.awt.Dimension(800, 500));
         setResizable(false);
 
         slot1Hold.setLabel("Hold");
@@ -72,10 +105,10 @@ public class SlotGUI extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setLabel("Play");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        playButton.setLabel("Play");
+        playButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                playButtonActionPerformed(evt);
             }
         });
 
@@ -107,7 +140,7 @@ public class SlotGUI extends javax.swing.JFrame {
                         .addComponent(slot3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(287, 287, 287)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(playButton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(216, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -124,49 +157,51 @@ public class SlotGUI extends javax.swing.JFrame {
                     .addComponent(slot2Hold)
                     .addComponent(slot1Hold))
                 .addGap(55, 55, 55)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(playButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(108, Short.MAX_VALUE))
         );
 
         slot1Hold.getAccessibleContext().setAccessibleName("slot1Hold");
         slot2Hold.getAccessibleContext().setAccessibleName("slot2Hold");
         slot3Hold.getAccessibleContext().setAccessibleName("slot3Hold");
-        jButton1.getAccessibleContext().setAccessibleName("playButton");
-        jButton1.getAccessibleContext().setAccessibleDescription("");
+        playButton.getAccessibleContext().setAccessibleName("playButton");
+        playButton.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
 
-        sm.spin();
-        this.slot1.setIcon(sm.getSlot1().getIcon());
-        this.slot2.setIcon(sm.getSlot2().getIcon());
-        this.slot3.setIcon(sm.getSlot3().getIcon());
-    }//GEN-LAST:event_jButton1ActionPerformed
+        this.slotMachine.getSlotManager().spin();
+        this.slot1.setIcon(slotMachine.getSlotManager().getSlot1().getIcon());
+        this.slot2.setIcon(slotMachine.getSlotManager().getSlot2().getIcon());
+        this.slot3.setIcon(slotMachine.getSlotManager().getSlot3().getIcon());
+
+
+    }//GEN-LAST:event_playButtonActionPerformed
 
     private void slot1HoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slot1HoldActionPerformed
-        if (sm.getSlot1().isHold()) {
-            sm.getSlot1().setHold(false);
+        if (slotMachine.getSlotManager().getSlot1().isHold()) {
+            slotMachine.getSlotManager().getSlot1().setHold(false);
             return;
         }
-        sm.getSlot1().setHold(true);
+        slotMachine.getSlotManager().getSlot1().setHold(true);
     }//GEN-LAST:event_slot1HoldActionPerformed
 
     private void slot2HoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slot2HoldActionPerformed
-        if (sm.getSlot2().isHold()) {
-            sm.getSlot2().setHold(false);
+        if (slotMachine.getSlotManager().getSlot2().isHold()) {
+            slotMachine.getSlotManager().getSlot2().setHold(false);
             return;
         }
-        sm.getSlot2().setHold(true);
+        slotMachine.getSlotManager().getSlot2().setHold(true);
     }//GEN-LAST:event_slot2HoldActionPerformed
 
     private void slot3HoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slot3HoldActionPerformed
-        if (sm.getSlot3().isHold()) {
-            sm.getSlot3().setHold(false);
+        if (slotMachine.getSlotManager().getSlot3().isHold()) {
+            slotMachine.getSlotManager().getSlot3().setHold(false);
             return;
         }
-        sm.getSlot3().setHold(true);
+        slotMachine.getSlotManager().getSlot3().setHold(true);
     }//GEN-LAST:event_slot3HoldActionPerformed
 
     /**
@@ -174,7 +209,7 @@ public class SlotGUI extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton playButton;
     private javax.swing.JLabel slot1;
     private javax.swing.JToggleButton slot1Hold;
     private javax.swing.JLabel slot2;
