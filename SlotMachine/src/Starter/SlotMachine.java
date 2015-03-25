@@ -6,34 +6,39 @@
 package Starter;
 
 import GUI.SlotGUI;
+import GUI.SoundPlayer;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.SwingUtilities;
 import slotmachine.SlotManager;
 
 /**
  *
- * @author Loek
+ * @author Asma
  */
 public class SlotMachine {
+    private final SlotGUI slotGUI;
+    private final SoundPlayer soundPlayer;
+    private final SlotManager slotManager;
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        try {
-            SlotManager sm = new SlotManager();
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    SlotGUI sgui = new SlotGUI(sm);
-                    sgui.setLocationRelativeTo(null);
-                    sgui.setVisible(true);
-                }
-            });
-        } catch (IOException ex) {
-            Logger.getLogger(SlotMachine.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public SlotMachine() throws IOException {
+        this.slotManager = new SlotManager(this);
+        this.soundPlayer = new SoundPlayer();
+        this.slotGUI = new SlotGUI(this);
+        
     }
+
+    public SlotGUI getSlotGUI() {
+        return slotGUI;
+    }
+
+    public SoundPlayer getSoundPlayer() {
+        return soundPlayer;
+    }
+
+    public SlotManager getSlotManager() {
+        return slotManager;
+    }
+    
+    
+    
+    
 }

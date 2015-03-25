@@ -5,21 +5,18 @@
  */
 package slotmachine;
 
+import GUI.SoundNames;
 import GUI.SoundPlayer;
-import GUI.soundNames;
+import Starter.SlotMachine;
 import java.io.IOException;
-import java.net.URL;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.After;
+import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  *
@@ -27,94 +24,89 @@ import static org.junit.Assert.*;
  */
 public class SlotManagerTest {
 
-    SlotManager sm;
-    SoundPlayer sp;
+    SlotMachine sm;
 
     @Before
     public void setUp() {
-        sp = new SoundPlayer();
         try {
-            sm = new SlotManager();
+            sm = new SlotMachine();
         } catch (IOException ex) {
             Logger.getLogger(SlotManagerTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail("Exception caught");
         }
     }
 
     @After
     public void tearDown() {
         sm = null;
-        sp = null;
     }
 
     @Test
     public void testSpin() {
-        sm.spin();
+        sm.getSlotManager().spin();
     }
 
     @Test
     public void testTwoInARow() {
-        sm.getSlot1().setSpecificImage(0);
-        sm.getSlot2().setSpecificImage(0);
-        sm.getSlot3().setSpecificImage(3);
+        sm.getSlotManager().getSlot1().setSpecificImage(0);
+        sm.getSlotManager().getSlot2().setSpecificImage(0);
+        sm.getSlotManager().getSlot3().setSpecificImage(3);
     }
 
     @Test
     public void testThreeInARow() {
-        sm.getSlot1().setSpecificImage(0);
-        sm.getSlot2().setSpecificImage(0);
-        sm.getSlot3().setSpecificImage(0);
+        sm.getSlotManager().getSlot1().setSpecificImage(0);
+        sm.getSlotManager().getSlot2().setSpecificImage(0);
+        sm.getSlotManager().getSlot3().setSpecificImage(0);
     }
     
     @Test
     public void testAudio() throws InterruptedException{
-        //sp.playSound(soundNames.TWO_IN_A_ROW);
-        try {
-        sp.playSound(soundNames.TWO_IN_A_ROW); 
-        Thread.sleep(4000);
-            
-        } catch (NullPointerException ex) {
-            System.out.println(soundNames.THREE_IN_A_ROW.getPath());
-            Logger.getLogger(SoundPlayer.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        sm.getSoundPlayer().playSound(SoundNames.THREE_IN_A_ROW);
+        //Thread.sleep(4000);
+        sm.getSoundPlayer().playSound(SoundNames.TWO_IN_A_ROW);
+        //Thread.sleep(2000);
     }
     
     @Test
     public void testEquals(){
-        sm.getSlot1().setSpecificImage(0);
-        sm.getSlot2().setSpecificImage(0);
-        sm.getSlot3().setSpecificImage(2);
+        sm.getSlotManager().getSlot1().setSpecificImage(3);
+        sm.getSlotManager().getSlot2().setSpecificImage(3);
+        sm.getSlotManager().getSlot3().setSpecificImage(2);
         
-        assertEquals("Two in a row!", sm.checkCombos());
-        sm.getSlot3().setSpecificImage(0);
-        assertEquals("Three in a row!", sm.checkCombos());
+        assertEquals("Two in a row!", sm.getSlotManager().checkCombos());
+        sm.getSlotManager().getSlot3().setSpecificImage(3);
+        assertEquals("Three in a row!", sm.getSlotManager().checkCombos());
     }
     
     @Test
     public void testHoldEquals(){
-        sm.getSlot1().setSpecificImage(0);
-        sm.getSlot2().setSpecificImage(0);
-        sm.getSlot3().setSpecificImage(2);
+        sm.getSlotManager().getSlot1().setSpecificImage(0);
+        sm.getSlotManager().getSlot2().setSpecificImage(0);
+        sm.getSlotManager().getSlot3().setSpecificImage(2);
         
-        assertEquals("None in a row!", sm.checkCombos());
-        sm.getSlot1().setHold(true);
-        sm.getSlot2().setHold(true);
-        assertEquals("None in a row!", sm.checkCombos());
-        sm.getSlot3().setSpecificImage(1);
-        assertEquals("None in a row!", sm.checkCombos());
-        sm.getSlot1().setHold(false);
-        sm.getSlot2().setHold(false);
-        assertEquals("None in a row!", sm.checkCombos());
+        assertEquals("None in a row!", sm.getSlotManager().checkCombos());
+        sm.getSlotManager().getSlot1().setHold(true);
+        sm.getSlotManager().getSlot2().setHold(true);
+        assertEquals("None in a row!", sm.getSlotManager().checkCombos());
+        sm.getSlotManager().getSlot3().setSpecificImage(1);
+        assertEquals("None in a row!", sm.getSlotManager().checkCombos());
+        sm.getSlotManager().getSlot1().setHold(false);
+        sm.getSlotManager().getSlot2().setHold(false);
+        assertEquals("None in a row!", sm.getSlotManager().checkCombos());
         
-        sm.getSlot1().setSpecificImage(1);
-        sm.getSlot2().setSpecificImage(1);
-        sm.getSlot3().setSpecificImage(2);
-        assertEquals("None in a row!", sm.checkCombos());
-        sm.getSlot1().setHold(true);
-        sm.getSlot2().setHold(true);
-        assertEquals("None in a row!", sm.checkCombos());
-        sm.getSlot3().setSpecificImage(1);
-        assertEquals("Three in a row!", sm.checkCombos());
+        sm.getSlotManager().getSlot1().setSpecificImage(1);
+        sm.getSlotManager().getSlot2().setSpecificImage(1);
+        sm.getSlotManager().getSlot3().setSpecificImage(2);
+        assertEquals("None in a row!", sm.getSlotManager().checkCombos());
+        sm.getSlotManager().getSlot1().setHold(true);
+        sm.getSlotManager().getSlot2().setHold(true);
+        assertEquals("None in a row!", sm.getSlotManager().checkCombos());
+        sm.getSlotManager().getSlot3().setSpecificImage(1);
+        assertEquals("Three in a row!", sm.getSlotManager().checkCombos());
         
     }
+    
+    
 
 }

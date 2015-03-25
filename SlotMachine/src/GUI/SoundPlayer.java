@@ -16,16 +16,18 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class SoundPlayer {
 
+    
     /**
      * 
      * @param sn Enum of a sound name.
      */
-    public void playSound(soundNames sn) {
+    public void playSound(SoundNames sn) {
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(sn.getPath());
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
+            
         } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
             Logger.getLogger(SoundPlayer.class.getName()).log(Level.SEVERE, null, ex);
         } 

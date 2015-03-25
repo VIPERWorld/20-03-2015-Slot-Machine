@@ -11,18 +11,18 @@ import java.net.URL;
  *
  * @author Loek
  */
-public enum soundNames {
+public enum SoundNames {
 
-    TWO_IN_A_ROW("Combo_x2.wav"),
-    THREE_IN_A_ROW("Combo_x3.wav");
+    TWO_IN_A_ROW("Combo_2x.wav"),
+    THREE_IN_A_ROW("Combo_3x.wav");
 
     private final String fileName;
 
     public URL getPath() {
-        return getClass().getResource("/GUI/Sounds/" + fileName);
+        return this.getClass().getResource("/GUI/Sounds/" + fileName);
     }
 
-    private soundNames(String s) {
+    private SoundNames(String s) {
         this.fileName = s;
     }
 
