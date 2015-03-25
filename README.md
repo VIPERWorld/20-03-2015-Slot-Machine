@@ -3,24 +3,23 @@ Exercise I found on the internet. Create a slot machine with a basic GUI in Java
 
 Beginner level coding.
 
-Uses Swing GUI, 
+<ul>
+<li>Swing GUI</li>
+<li>Threads</li>
+<li>Playing sounds </li>
+<li>Displaying images</li>
+<li>Enums</li></li>
+<li>Exception handling</li>
+<li>ActionListeners </li>
 
-Threads, 
-
-Playing sounds, 
-
-Displaying images,
-
-Enums,
-
-Exception handling.
+</ul>
 
 
 
 <h3> TODO </h3>
 
-<ul>
+<ol>
 <li>Correct image sizes</li>
 <li>Correct sound volumes</li>
 <li>Flashy GUI </li>
-</ul>
+</ol>
