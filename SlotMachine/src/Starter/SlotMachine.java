@@ -15,6 +15,7 @@ import slotmachine.SlotManager;
  * @author Asma
  */
 public class SlotMachine {
+
     private final SlotGUI slotGUI;
     private final SoundPlayer soundPlayer;
     private final SlotManager slotManager;
@@ -23,7 +24,7 @@ public class SlotMachine {
         this.slotManager = new SlotManager(this);
         this.soundPlayer = new SoundPlayer();
         this.slotGUI = new SlotGUI(this);
-        
+
     }
 
     public SlotGUI getSlotGUI() {
@@ -37,8 +38,5 @@ public class SlotMachine {
     public SlotManager getSlotManager() {
         return slotManager;
     }
-    
-    
-    
-    
+
 }

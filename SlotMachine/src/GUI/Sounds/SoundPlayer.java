@@ -13,13 +13,13 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 /**
  *
  * Useful for playing sounds.
+ *
  * @author Loek
  */
 public class SoundPlayer {
 
-    
     /**
-     * 
+     *
      * @param sn Enum of a sound name.
      */
     public void playSound(SoundNames sn) {
@@ -28,10 +28,10 @@ public class SoundPlayer {
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
-            
+
         } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
             Logger.getLogger(SoundPlayer.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
 
 }

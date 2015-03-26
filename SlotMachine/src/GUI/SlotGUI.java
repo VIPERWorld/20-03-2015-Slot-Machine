@@ -6,7 +6,6 @@
 package GUI;
 
 import Starter.SlotMachine;
-import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
@@ -65,8 +64,7 @@ public class SlotGUI extends javax.swing.JFrame {
         return slot3Hold;
     }
 
-    
-    static class MyTimerListener implements ActionListener {
+    private static class MyTimerListener implements ActionListener {
 
         JComponent target;
 
@@ -197,7 +195,6 @@ public class SlotGUI extends javax.swing.JFrame {
         this.slot2.setIcon(slotMachine.getSlotManager().getSlot2().getIcon());
         this.slot3.setIcon(slotMachine.getSlotManager().getSlot3().getIcon());
 
-
     }//GEN-LAST:event_playButtonActionPerformed
 
     private void slot1HoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slot1HoldActionPerformed
@@ -227,7 +224,6 @@ public class SlotGUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton playButton;
     private javax.swing.JLabel slot1;
