@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Reverse engineered SlotMachine 2015.03.26 14-43-10-638">
+  <ClassDiagramComponents>
+    <Enum xPosition="20.0" yPosition="20.0" package="GUI" name="SoundNames" visibility="public">
+      <Literals>
+        <Literal name="TWO_IN_A_ROW"/>
+        <Literal name="THREE_IN_A_ROW"/>
+      </Literals>
+    </Enum>
+    <Class xPosition="320.0" yPosition="20.0" package="GUI" name="SoundPlayer" visibility="public">
+      <Constructors/>
+      <Fields/>
+      <Methods>
+        <Method name="playSound" visibility="public" returnType="void">
+          <Argument type="SoundNames" name="sn"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class xPosition="620.0" yPosition="20.0" package="slotmachine" name="Slot" visibility="public">
+      <Constructors>
+        <Constructor name="Slot" visibility="public">
+          <Argument type="int" name="i"/>
+        </Constructor>
+      </Constructors>
+      <Fields>
+        <Field name="imagePaths" visibility="private" type="String[]" isStatic="true" isFinal="true"/>
+        <Field name="icon" visibility="private" type="Icon"/>
+        <Field name="hold" visibility="private" type="boolean"/>
+        <Field name="imageName" visibility="private" type="String"/>
+      </Fields>
+      <Methods>
+        <Method name="getImagePaths" visibility="public" returnType="String[]" isStatic="true"/>
+        <Method name="getImageName" visibility="public" returnType="String"/>
+        <Method name="getIcon" visibility="public" returnType="Icon"/>
+        <Method name="setHold" visibility="public" returnType="void">
+          <Argument type="boolean" name="hold"/>
+        </Method>
+        <Method name="setRandomImage" visibility="public" returnType="void" isFinal="true">
+          <Argument type="int" name="i"/>
+        </Method>
+        <Method name="setSpecificImage" visibility="public" returnType="void">
+          <Argument type="int" name="i"/>
+        </Method>
+        <Method name="hashCode" visibility="public" returnType="int"/>
+        <Method name="equals" visibility="public" returnType="boolean">
+          <Argument type="Object" name="obj"/>
+        </Method>
+        <Method name="isHold" visibility="public" returnType="boolean"/>
+      </Methods>
+    </Class>
+    <Class xPosition="920.0" yPosition="20.0" package="slotmachine" name="SlotManager" visibility="public">
+      <Constructors>
+        <Constructor name="SlotManager" visibility="public">
+          <Argument type="SlotMachine" name="sm"/>
+        </Constructor>
+      </Constructors>
+      <Fields>
+        <Field name="slot1" visibility="private" type="Slot" isFinal="true"/>
+        <Field name="slot2" visibility="private" type="Slot" isFinal="true"/>
+        <Field name="slot3" visibility="private" type="Slot" isFinal="true"/>
+        <Field name="slotMachine" visibility="private" type="SlotMachine" isFinal="true"/>
+        <Field name="r" visibility="private" type="Random" isFinal="true"/>
+      </Fields>
+      <Methods>
+        <Method name="getSlot1" visibility="public" returnType="Slot"/>
+        <Method name="getSlot2" visibility="public" returnType="Slot"/>
+        <Method name="getSlot3" visibility="public" returnType="Slot"/>
+        <Method name="spin" visibility="public" returnType="void"/>
+        <Method name="checkCombos" visibility="public" returnType="String"/>
+        <Method name="getRandomNumber" visibility="private" returnType="int"/>
+        <Method name="hasThreeInARow" visibility="private" returnType="boolean"/>
+        <Method name="hasTwoInARow" visibility="private" returnType="boolean"/>
+      </Methods>
+    </Class>
+    <Class xPosition="20.0" yPosition="420.0" package="Starter" name="SlotMachine" visibility="public">
+      <Constructors>
+        <Constructor name="SlotMachine" visibility="public"/>
+      </Constructors>
+      <Fields>
+        <Field name="slotGUI" visibility="private" type="SlotGUI" isFinal="true"/>
+        <Field name="soundPlayer" visibility="private" type="SoundPlayer" isFinal="true"/>
+        <Field name="slotManager" visibility="private" type="SlotManager" isFinal="true"/>
+      </Fields>
+      <Methods>
+        <Method name="getSlotGUI" visibility="public" returnType="SlotGUI"/>
+        <Method name="getSoundPlayer" visibility="public" returnType="SoundPlayer"/>
+        <Method name="getSlotManager" visibility="public" returnType="SlotManager"/>
+      </Methods>
+    </Class>
+    <Class xPosition="320.0" yPosition="420.0" package="Starter" name="Starter" visibility="public">
+      <Constructors/>
+      <Fields/>
+      <Methods>
+        <Method name="main" visibility="public" returnType="void" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <UseRelation source="SoundPlayer" target="SoundNames" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="SlotManager" target="Slot" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="soundPlayer" source="SlotMachine" target="SoundPlayer" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="SlotMachine" target="Slot" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="slot1" source="SlotManager" target="Slot" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="slot2" source="SlotManager" target="Slot" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="slot3" source="SlotManager" target="Slot" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="slotManager" source="SlotMachine" target="SlotManager" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="slotGUI" source="SlotMachine" target="Slot" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="slotMachine" source="SlotManager" target="SlotMachine" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="SlotMachine" target="SoundPlayer" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="SlotMachine" target="SlotManager" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

@@ -6,13 +6,11 @@
 package slotmachine;
 
 import GUI.SoundNames;
-import GUI.SoundPlayer;
 import Starter.SlotMachine;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.After;
-import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.Before;
