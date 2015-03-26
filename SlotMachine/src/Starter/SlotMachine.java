@@ -6,7 +6,7 @@
 package Starter;
 
 import GUI.SlotGUI;
-import GUI.SoundPlayer;
+import GUI.Sounds.SoundPlayer;
 import java.io.IOException;
 import slotmachine.SlotManager;
 
