@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
+import slotmachine.SlotManager;
 
 /**
  *
@@ -22,13 +23,14 @@ public class Starter {
      */
     public static void main(String[] args) {
         try {
-            SlotMachine sm = new SlotMachine();
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    sm.getSlotGUI().setLocationRelativeTo(null);
-                    sm.getSlotGUI().setVisible(true);
-                }
+            SlotManager sm;
+            SlotGUI gui;
+            sm = new SlotManager();
+            gui = new SlotGUI(sm);
+            sm.setGui(gui);
+            sm.addObserver(gui);
+            SwingUtilities.invokeLater(() -> {
+                gui.setVisible(true);
             });
         } catch (IOException ex) {
             Logger.getLogger(Starter.class.getName()).log(Level.SEVERE, null, ex);

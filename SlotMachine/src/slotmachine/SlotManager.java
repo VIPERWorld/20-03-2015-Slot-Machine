@@ -1,9 +1,11 @@
 package slotmachine;
 
-import GUI.SoundNames;
-import Starter.SlotMachine;
+import GUI.SlotGUI;
+import GUI.Sounds.SoundNames;
+import GUI.Sounds.SoundPlayer;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Random;
 
 /**
@@ -13,28 +15,33 @@ import java.util.Random;
  *
  * @author Loek
  */
-public class SlotManager {
+public class SlotManager extends Observable {
 
     private final Slot slot1;
     private final Slot slot2;
     private final Slot slot3;
-    private final SlotMachine slotMachine;
     private final Random r;
+    private final SoundPlayer soundPlayer;
+    private SlotGUI gui;
 
     /**
-     * Initializes 3 slots with random images, SoundPlayer and Random.
+     * Initializes 3 slots with random images.
      *
-     * @param sm
      * @throws IOException
      */
-    public SlotManager(SlotMachine sm) throws IOException {
+    public SlotManager() throws IOException {
+        soundPlayer = new SoundPlayer();
         this.r = new Random();
-        slotMachine = sm;
-
         slot1 = new Slot(getRandomNumber());
         slot2 = new Slot(getRandomNumber());
         slot3 = new Slot(getRandomNumber());
+        this.setChanged();
+        this.notifyObservers();
 
+    }
+
+    public void setGui(SlotGUI gui) {
+        this.gui = gui;
     }
 
     public Slot getSlot1() {
@@ -53,24 +60,38 @@ public class SlotManager {
      * Checks slot if they are set to hold and spins them if not.
      */
     public void spin() {
+        boolean slot1hold = false;
+        boolean slot2hold = false;
+        boolean slot3hold = false;
         if (!slot1.isHold()) {
             slot1.setRandomImage(getRandomNumber());
         } else {
-            slotMachine.getSlotGUI().click(slotMachine.getSlotGUI().getSlot1Hold());
+            slot1hold = true;
         }
         if (!slot2.isHold()) {
             slot2.setRandomImage(getRandomNumber());
         } else {
-            slotMachine.getSlotGUI().click(slotMachine.getSlotGUI().getSlot2Hold());
+            slot2hold = true;
         }
         if (!slot3.isHold()) {
             slot3.setRandomImage(getRandomNumber());
         } else {
-            slotMachine.getSlotGUI().click(slotMachine.getSlotGUI().getSlot3Hold());
+            slot3hold = true;
+        }
+        checkCombos();
 
+        if (slot1hold) {
+            gui.click(gui.getSlot1Hold());
+        }
+        if (slot2hold) {
+            gui.click(gui.getSlot2Hold());
+        }
+        if (slot3hold) {
+            gui.click(gui.getSlot3Hold());
         }
 
-        checkCombos();
+        this.setChanged();
+        this.notifyObservers();
 
     }
 
@@ -82,14 +103,14 @@ public class SlotManager {
      */
     public String checkCombos() {
         if (this.hasThreeInARow()) {
-            slotMachine.getSoundPlayer().playSound(SoundNames.THREE_IN_A_ROW);
+            soundPlayer.playSound(SoundNames.THREE_IN_A_ROW);
             return "Three in a row!";
 
         } else if (hasTwoInARow()) {
-            slotMachine.getSoundPlayer().playSound(SoundNames.TWO_IN_A_ROW);
+            soundPlayer.playSound(SoundNames.TWO_IN_A_ROW);
             return "Two in a row!";
         }
-        slotMachine.getSlotGUI().getPlayButton().setEnabled(true);
+        gui.getPlayButton().setEnabled(true);
         return "None in a row!";
     }
 
@@ -103,11 +124,23 @@ public class SlotManager {
         validIcons.add("BigWin.png");
         validIcons.add("Bar.png");
         validIcons.add("Cherry.png");
-        return getSlot1().equals(getSlot2()) && getSlot2().equals(getSlot3()) && validIcons.contains(getSlot3().getImageName());
+        return ((getSlot1().equals(getSlot2()) && getSlot2().equals(getSlot3()))
+                || (getSlot1().isHold() && getSlot2().isHold() && getSlot1().getImageName().equals(getSlot2().getImageName()) && getSlot2().getImageName().equals(getSlot3().getImageName()))
+                || (getSlot2().isHold() && getSlot1().getImageName().equals(getSlot2().getImageName()) && getSlot2().getImageName().equals(getSlot3().getImageName()))
+                || (getSlot2().isHold() && getSlot3().isHold() && getSlot1().getImageName().equals(getSlot2().getImageName()) && getSlot2().getImageName().equals(getSlot3().getImageName()))
+                || (getSlot1().isHold() && getSlot3().isHold() && getSlot1().getImageName().equals(getSlot2().getImageName()) && getSlot2().getImageName().equals(getSlot3().getImageName())))
+                && !(getSlot1().isHold() && getSlot2().isHold() && getSlot3().isHold())
+                && validIcons.contains(getSlot3().getImageName());
     }
 
     private boolean hasTwoInARow() {
-        return (getSlot1().equals(getSlot2()) || getSlot2().equals(getSlot3())) && getSlot2().getImageName().equals("Cherry.png");
+        return (    getSlot1().equals(getSlot2()) 
+                ||  getSlot2().equals(getSlot3()) 
+                || (getSlot1().isHold() && !getSlot2().isHold() && getSlot2().getImageName().equals(getSlot1().getImageName()))
+                || (getSlot2().isHold() && !getSlot1().isHold() && getSlot1().getImageName().equals(getSlot2().getImageName()))
+                || (getSlot3().isHold() && !getSlot2().isHold() && getSlot2().getImageName().equals(getSlot3().getImageName()))
+                || (getSlot2().isHold() && !getSlot3().isHold() && getSlot3().getImageName().equals(getSlot2().getImageName())))
+                && getSlot2().getImageName().equals("Cherry.png");
     }
 
 }

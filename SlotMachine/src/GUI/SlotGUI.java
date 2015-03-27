@@ -5,23 +5,25 @@
  */
 package GUI;
 
-import Starter.SlotMachine;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
+import slotmachine.SlotManager;
 
 /**
  *
  * @author Loek
  */
 @SuppressWarnings("serial")
-public class SlotGUI extends javax.swing.JFrame {
+public class SlotGUI extends javax.swing.JFrame implements Observer {
 
-    private final SlotMachine slotMachine;
+    private final SlotManager slotManager;
     private Timer stopwatch;
 
     /**
@@ -29,13 +31,14 @@ public class SlotGUI extends javax.swing.JFrame {
      *
      * @param sm
      */
-    public SlotGUI(SlotMachine sm) {
-        this.slotMachine = sm;
-        initComponents();
-        this.slot1.setIcon(sm.getSlotManager().getSlot1().getIcon());
-        this.slot2.setIcon(sm.getSlotManager().getSlot2().getIcon());
-        this.slot3.setIcon(sm.getSlotManager().getSlot3().getIcon());
+    public SlotGUI(SlotManager sm) {
+        this.setLocationRelativeTo(null);
+        this.initComponents();
+        this.slot1.setIcon(sm.getSlot1().getIcon());
+        this.slot2.setIcon(sm.getSlot2().getIcon());
+        this.slot3.setIcon(sm.getSlot3().getIcon());
 
+        slotManager = sm;
         stopwatch = new Timer(3000, new MyTimerListener(playButton));
         stopwatch.setRepeats(false);
         this.playButton.addActionListener((ActionEvent e) -> {
@@ -44,24 +47,53 @@ public class SlotGUI extends javax.swing.JFrame {
         });
     }
 
+    /**
+     *
+     * @return the play button.
+     */
     public JButton getPlayButton() {
         return playButton;
     }
 
+    /**
+     * Simulates a click on a button.
+     *
+     * @param button to be clicked
+     */
     public void click(AbstractButton button) {
         button.doClick();
     }
 
+    /**
+     *
+     * @return slot1 hold button
+     */
     public JToggleButton getSlot1Hold() {
         return slot1Hold;
     }
 
+    /**
+     *
+     * @return slot2 hold button.
+     */
     public JToggleButton getSlot2Hold() {
         return slot2Hold;
     }
 
+    /**
+     *
+     * @return slot3 hold button.
+     */
     public JToggleButton getSlot3Hold() {
         return slot3Hold;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        SlotManager sm = (SlotManager) o;
+        this.slot1.setIcon(sm.getSlot1().getIcon());
+        this.slot2.setIcon(sm.getSlot2().getIcon());
+        this.slot3.setIcon(sm.getSlot3().getIcon());
     }
 
     private static class MyTimerListener implements ActionListener {
@@ -190,35 +222,35 @@ public class SlotGUI extends javax.swing.JFrame {
 
     private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
 
-        this.slotMachine.getSlotManager().spin();
-        this.slot1.setIcon(slotMachine.getSlotManager().getSlot1().getIcon());
-        this.slot2.setIcon(slotMachine.getSlotManager().getSlot2().getIcon());
-        this.slot3.setIcon(slotMachine.getSlotManager().getSlot3().getIcon());
+        this.slotManager.spin();
+        this.slot1.setIcon(slotManager.getSlot1().getIcon());
+        this.slot2.setIcon(slotManager.getSlot2().getIcon());
+        this.slot3.setIcon(slotManager.getSlot3().getIcon());
 
     }//GEN-LAST:event_playButtonActionPerformed
 
     private void slot1HoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slot1HoldActionPerformed
-        if (slotMachine.getSlotManager().getSlot1().isHold()) {
-            slotMachine.getSlotManager().getSlot1().setHold(false);
+        if (slotManager.getSlot1().isHold()) {
+            slotManager.getSlot1().setHold(false);
             return;
         }
-        slotMachine.getSlotManager().getSlot1().setHold(true);
+        slotManager.getSlot1().setHold(true);
     }//GEN-LAST:event_slot1HoldActionPerformed
 
     private void slot2HoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slot2HoldActionPerformed
-        if (slotMachine.getSlotManager().getSlot2().isHold()) {
-            slotMachine.getSlotManager().getSlot2().setHold(false);
+        if (slotManager.getSlot2().isHold()) {
+            slotManager.getSlot2().setHold(false);
             return;
         }
-        slotMachine.getSlotManager().getSlot2().setHold(true);
+        slotManager.getSlot2().setHold(true);
     }//GEN-LAST:event_slot2HoldActionPerformed
 
     private void slot3HoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slot3HoldActionPerformed
-        if (slotMachine.getSlotManager().getSlot3().isHold()) {
-            slotMachine.getSlotManager().getSlot3().setHold(false);
+        if (slotManager.getSlot3().isHold()) {
+            slotManager.getSlot3().setHold(false);
             return;
         }
-        slotMachine.getSlotManager().getSlot3().setHold(true);
+        slotManager.getSlot3().setHold(true);
     }//GEN-LAST:event_slot3HoldActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
