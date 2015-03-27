@@ -221,9 +221,6 @@ public class SlotGUI extends javax.swing.JFrame {
         slotMachine.getSlotManager().getSlot3().setHold(true);
     }//GEN-LAST:event_slot3HoldActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton playButton;
     private javax.swing.JLabel slot1;
