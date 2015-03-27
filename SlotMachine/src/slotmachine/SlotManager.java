@@ -124,23 +124,53 @@ public class SlotManager extends Observable {
         validIcons.add("BigWin.png");
         validIcons.add("Bar.png");
         validIcons.add("Cherry.png");
-        return ((getSlot1().equals(getSlot2()) && getSlot2().equals(getSlot3()))
-                || (getSlot1().isHold() && getSlot2().isHold() && getSlot1().getImageName().equals(getSlot2().getImageName()) && getSlot2().getImageName().equals(getSlot3().getImageName()))
-                || (getSlot2().isHold() && getSlot1().getImageName().equals(getSlot2().getImageName()) && getSlot2().getImageName().equals(getSlot3().getImageName()))
-                || (getSlot2().isHold() && getSlot3().isHold() && getSlot1().getImageName().equals(getSlot2().getImageName()) && getSlot2().getImageName().equals(getSlot3().getImageName()))
-                || (getSlot1().isHold() && getSlot3().isHold() && getSlot1().getImageName().equals(getSlot2().getImageName()) && getSlot2().getImageName().equals(getSlot3().getImageName())))
-                && !(getSlot1().isHold() && getSlot2().isHold() && getSlot3().isHold())
-                && validIcons.contains(getSlot3().getImageName());
+        Slot sslot1 = getSlot1();
+        Slot sslot2 = getSlot2();
+        Slot sslot3 = getSlot3();
+
+        // return false if all of the slots are held
+        if (sslot1.isHold() && sslot2.isHold() && sslot3.isHold()) {
+            return false;
+        } // return false if an invalid image is held
+        else if (!validIcons.contains(sslot3.getImageName())) {
+            return false;
+        } else {
+            // return true if all the images match
+            return sslot1.equals(sslot2) && sslot2.equals(sslot3);
+        }
     }
 
     private boolean hasTwoInARow() {
-        return (    getSlot1().equals(getSlot2()) 
-                ||  getSlot2().equals(getSlot3()) 
-                || (getSlot1().isHold() && !getSlot2().isHold() && getSlot2().getImageName().equals(getSlot1().getImageName()))
-                || (getSlot2().isHold() && !getSlot1().isHold() && getSlot1().getImageName().equals(getSlot2().getImageName()))
-                || (getSlot3().isHold() && !getSlot2().isHold() && getSlot2().getImageName().equals(getSlot3().getImageName()))
-                || (getSlot2().isHold() && !getSlot3().isHold() && getSlot3().getImageName().equals(getSlot2().getImageName())))
-                && getSlot2().getImageName().equals("Cherry.png");
+        Slot sslot1 = getSlot1();
+        Slot sslot2 = getSlot2();
+        Slot sslot3 = getSlot3();
+
+        //Return false if there isn't a Cherry image
+        if (!sslot2.getImageName().equals("Cherry.png")) {
+            return false;
+        }
+
+        //Returns false if all slots are held.
+        if (sslot1.isHold() && sslot2.isHold() && sslot3.isHold()) {
+            return false;
+        }
+
+        //Return false if there are no two same icons and hold status are valid in a row.
+        if (sslot1.isHold()) {
+            if (sslot2.isHold()) {
+                return false;
+            }
+            return sslot1.equals(sslot2);
+        }
+        if (sslot2.isHold()) {
+            if (sslot1.isHold() || sslot3.isHold()) {
+                return false;
+            }
+            return sslot1.equals(sslot2)
+                    || sslot2.equals(sslot3);
+        }
+        return sslot3.equals(sslot2) || sslot1.equals(sslot2);
+
     }
 
 }

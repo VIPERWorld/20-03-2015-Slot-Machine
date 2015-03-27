@@ -6,13 +6,11 @@
 package slotmachine;
 
 import GUI.SlotGUI;
-import GUI.Sounds.SoundNames;
 import GUI.Sounds.SoundPlayer;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.After;
-import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -122,19 +120,33 @@ public class SlotManagerTest {
         sm.getSlot3().setSpecificImage(1);
         assertEquals("Three in a row!", sm.checkCombos());
                
+        resetSlots();     
+        assertEquals("Two in a row!", sm.checkCombos());
+        sm.getSlot1().setHold(true);
+        sm.getSlot2().setHold(true);
+        assertEquals("None in a row!", sm.checkCombos());
+        sm.getSlot3().setSpecificImage(3);  
+        assertEquals("Three in a row!", sm.checkCombos());
+        
+        resetSlots();    
+        sm.getSlot1().setHold(true);
+        assertEquals("Two in a row!", sm.checkCombos());
+        assertTrue(sm.getSlot1().equals(sm.getSlot2()));
+        assertTrue(sm.getSlot1().equals(sm.getSlot2()));
+        sm.getSlot2().setHold(true);
+        assertEquals("None in a row!", sm.checkCombos());
+        sm.getSlot3().setSpecificImage(3);
+        assertEquals("Three in a row!", sm.checkCombos());
+    }
+
+    private void resetSlots() {
         sm.getSlot1().setHold(false);
         sm.getSlot2().setHold(false);
         sm.getSlot3().setHold(false);
         sm.getSlot1().setSpecificImage(3);
         sm.getSlot2().setSpecificImage(3);
-        sm.getSlot3().setSpecificImage(2);     
-        assertEquals("Two in a row!", sm.checkCombos());
-        sm.getSlot1().setHold(true);
-        sm.getSlot2().setHold(true);
-        System.out.println((sm.getSlot1().isHold() && sm.getSlot2().getImageName().equals(sm.getSlot1().getImageName())));
-        assertEquals("None in a row!", sm.checkCombos());
-        sm.getSlot3().setSpecificImage(3);  
-        assertEquals("Three in a row!", sm.checkCombos());
+        sm.getSlot3().setSpecificImage(2);
     }
+   
     
 }

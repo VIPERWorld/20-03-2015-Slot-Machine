@@ -100,10 +100,7 @@ public final class Slot {
             return false;
         }
         final Slot other = (Slot) obj;
-        if (!Objects.equals(this.getImageName(), other.getImageName())) {
-            return false;
-        }
-        return !this.isHold() && !((Slot) obj).isHold();
+        return Objects.equals(this.getImageName(), other.getImageName());
     }
 
     /**
