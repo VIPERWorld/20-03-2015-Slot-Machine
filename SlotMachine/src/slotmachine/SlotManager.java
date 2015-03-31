@@ -11,7 +11,7 @@ import java.util.Random;
 /**
  *
  * SlotManager manages 3 slots. It makes them spin, checks for combos and tells
- * SoundPlayer to play appropiate sounds.
+ * SoundPlayer to play the appropriate sounds.
  *
  * @author Loek
  */
@@ -20,7 +20,6 @@ public class SlotManager extends Observable {
     private final Slot slot1;
     private final Slot slot2;
     private final Slot slot3;
-    private final Random r;
     private final SoundPlayer soundPlayer;
     private SlotGUI gui;
 
@@ -31,7 +30,6 @@ public class SlotManager extends Observable {
      */
     public SlotManager() throws IOException {
         soundPlayer = new SoundPlayer();
-        this.r = new Random();
         slot1 = new Slot(getRandomNumber());
         slot2 = new Slot(getRandomNumber());
         slot3 = new Slot(getRandomNumber());
@@ -115,6 +113,7 @@ public class SlotManager extends Observable {
     }
 
     private int getRandomNumber() {
+        Random r = new Random();
         return r.nextInt(Slot.getImagePaths().length);
     }
 

@@ -32,7 +32,7 @@ public class SlotGUI extends javax.swing.JFrame implements Observer {
      * @param sm
      */
     public SlotGUI(SlotManager sm) {
-        this.setLocationRelativeTo(null);
+        //this.setLocationRelativeTo(null);
         this.initComponents();
         this.slot1.setIcon(sm.getSlot1().getIcon());
         this.slot2.setIcon(sm.getSlot2().getIcon());
