@@ -23,11 +23,11 @@ import org.junit.Test;
  * @author Asma
  */
 public class SlotManagerTest {
-    
+
     SlotManager sm;
     SoundPlayer sp;
     SlotGUI gui;
-    
+
     @Before
     public void setUp() {
         try {
@@ -41,20 +41,20 @@ public class SlotManagerTest {
             fail("Exception caught");
         }
     }
-    
+
     @After
     public void tearDown() {
         sm = null;
         sp = null;
         gui = null;
-                
+
     }
-    
+
     @Test
     public void testSpin() {
         sm.spin();
     }
-    
+
     @Test
     public void testTwoInARow() {
         sm.getSlot1().setSpecificImage(3);
@@ -62,7 +62,7 @@ public class SlotManagerTest {
         sm.getSlot3().setSpecificImage(2);
         assertEquals("Two in a row!", sm.checkCombos());
     }
-    
+
     @Test
     public void testThreeInARow() {
         sm.getSlot1().setSpecificImage(1);
@@ -70,7 +70,7 @@ public class SlotManagerTest {
         sm.getSlot3().setSpecificImage(1);
         assertEquals("Three in a row!", sm.checkCombos());
     }
-    
+
     @Test
     public void testAudio() throws InterruptedException {
         //sp.playSound(SoundNames.THREE_IN_A_ROW);
@@ -78,13 +78,13 @@ public class SlotManagerTest {
         //sp.playSound(SoundNames.TWO_IN_A_ROW);
         //Thread.sleep(2000);
     }
-    
+
     @Test
     public void testEquals() {
         sm.getSlot1().setSpecificImage(3);
         sm.getSlot2().setSpecificImage(3);
         sm.getSlot3().setSpecificImage(2);
-        
+
         assertTrue(sm.getSlot1().equals(sm.getSlot2()));
         assertFalse(sm.getSlot1().equals(sm.getSlot3()));
         assertFalse(sm.getSlot2().equals(sm.getSlot3()));
@@ -93,13 +93,13 @@ public class SlotManagerTest {
         assertTrue(sm.getSlot1().equals(sm.getSlot3()));
         assertFalse(!sm.getSlot1().equals(sm.getSlot3()));
     }
-    
+
     @Test
     public void testCombos() {
         sm.getSlot1().setSpecificImage(0);
         sm.getSlot2().setSpecificImage(0);
         sm.getSlot3().setSpecificImage(2);
-        
+
         assertEquals("None in a row!", sm.checkCombos());
         sm.getSlot1().setHold(true);
         sm.getSlot2().setHold(true);
@@ -109,7 +109,7 @@ public class SlotManagerTest {
         sm.getSlot1().setHold(false);
         sm.getSlot2().setHold(false);
         assertEquals("None in a row!", sm.checkCombos());
-        
+
         sm.getSlot1().setSpecificImage(1);
         sm.getSlot2().setSpecificImage(1);
         sm.getSlot3().setSpecificImage(2);
@@ -119,16 +119,16 @@ public class SlotManagerTest {
         assertEquals("None in a row!", sm.checkCombos());
         sm.getSlot3().setSpecificImage(1);
         assertEquals("Three in a row!", sm.checkCombos());
-               
-        resetSlots();     
+
+        resetSlots();
         assertEquals("Two in a row!", sm.checkCombos());
         sm.getSlot1().setHold(true);
         sm.getSlot2().setHold(true);
         assertEquals("None in a row!", sm.checkCombos());
-        sm.getSlot3().setSpecificImage(3);  
+        sm.getSlot3().setSpecificImage(3);
         assertEquals("Three in a row!", sm.checkCombos());
-        
-        resetSlots();    
+
+        resetSlots();
         sm.getSlot1().setHold(true);
         assertEquals("Two in a row!", sm.checkCombos());
         assertTrue(sm.getSlot1().equals(sm.getSlot2()));
@@ -147,6 +147,5 @@ public class SlotManagerTest {
         sm.getSlot2().setSpecificImage(3);
         sm.getSlot3().setSpecificImage(2);
     }
-   
-    
+
 }
