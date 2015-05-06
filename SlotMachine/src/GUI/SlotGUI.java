@@ -53,6 +53,7 @@ public class SlotGUI extends javax.swing.JFrame implements Observer {
      */
     public JButton getPlayButton() {
         return playButton;
+       
     }
 
     /**
