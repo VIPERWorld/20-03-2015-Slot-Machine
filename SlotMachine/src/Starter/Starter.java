@@ -9,6 +9,7 @@ import GUI.SlotGUI;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.SwingUtilities;
 import slotmachine.SlotManager;
 

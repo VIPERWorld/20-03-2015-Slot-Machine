@@ -6,10 +6,12 @@
 package slotmachine;
 
 import GUI.SlotGUI;
+import GUI.Sounds.SoundNames;
 import GUI.Sounds.SoundPlayer;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.LineUnavailableException;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -29,9 +31,9 @@ public class SlotManagerTest {
     SlotGUI gui;
 
     @Before
-    public void setUp() {
+    public void setUp() throws LineUnavailableException {
         try {
-            sp = new SoundPlayer();
+            sp = new SoundPlayer(sm);
             sm = new SlotManager();
             gui = new SlotGUI(sm);
             sm.setGui(gui);

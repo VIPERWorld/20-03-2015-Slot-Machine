@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Random;
+import javax.sound.sampled.LineUnavailableException;
 
 /**
  *
@@ -21,6 +22,7 @@ public class SlotManager extends Observable {
     private final Slot slot2;
     private final Slot slot3;
     private final SoundPlayer soundPlayer;
+    private Thread sound;
     private SlotGUI gui;
 
     /**
@@ -29,7 +31,8 @@ public class SlotManager extends Observable {
      * @throws IOException
      */
     public SlotManager() throws IOException {
-        soundPlayer = new SoundPlayer();
+        soundPlayer = new SoundPlayer(this);
+        
         slot1 = new Slot(getRandomNumber());
         slot2 = new Slot(getRandomNumber());
         slot3 = new Slot(getRandomNumber());
@@ -101,14 +104,20 @@ public class SlotManager extends Observable {
      */
     public String checkCombos() {
         if (this.hasThreeInARow()) {
-            soundPlayer.playSound(SoundNames.THREE_IN_A_ROW);
+            soundPlayer.setSoundClip(SoundNames.THREE_IN_A_ROW);
+            playSound();
+            gui.addPointsThreeInARow();
             return "Three in a row!";
+            
 
         } else if (hasTwoInARow()) {
-            soundPlayer.playSound(SoundNames.TWO_IN_A_ROW);
+            soundPlayer.setSoundClip(SoundNames.TWO_IN_A_ROW);
+            playSound();
+            gui.addPointsTwoInARow();
             return "Two in a row!";
         }
         gui.getPlayButton().setEnabled(true);
+        gui.subtractPoints();
         return "None in a row!";
     }
 
@@ -170,6 +179,15 @@ public class SlotManager extends Observable {
         }
         return sslot3.equals(sslot2) || sslot1.equals(sslot2);
 
+    }
+
+    public void finishedPlaying() {
+        gui.finishedPlaying();
+    }
+
+    private void playSound() {
+        sound = new Thread(soundPlayer);
+        sound.start();
     }
 
 }
