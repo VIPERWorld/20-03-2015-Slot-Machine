@@ -13,7 +13,7 @@ import javax.sound.sampled.LineEvent.Type;
 import javax.sound.sampled.LineListener;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import slotmachine.SlotManager;
+import Slotmachine.SlotManager;
 
 /**
  *

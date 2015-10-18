@@ -17,7 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
-import slotmachine.SlotManager;
+import Slotmachine.SlotManager;
 
 /**
  *

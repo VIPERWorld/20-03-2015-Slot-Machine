@@ -1,4 +1,4 @@
-package slotmachine;
+package Slotmachine;
 
 import GUI.SlotGUI;
 import GUI.Sounds.SoundNames;

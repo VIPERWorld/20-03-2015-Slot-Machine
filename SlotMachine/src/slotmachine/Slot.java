@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package slotmachine;
+package Slotmachine;
 
 import java.util.Objects;
 import javax.swing.Icon;

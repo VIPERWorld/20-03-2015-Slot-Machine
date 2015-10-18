@@ -5,6 +5,7 @@
  */
 package slotmachine;
 
+import Slotmachine.SlotManager;
 import GUI.SlotGUI;
 import GUI.Sounds.SoundNames;
 import GUI.Sounds.SoundPlayer;
