@@ -5,8 +5,11 @@
  */
 package GUI;
 
+import Controllers.Score;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.AbstractButton;
@@ -22,9 +25,10 @@ import slotmachine.SlotManager;
  */
 @SuppressWarnings("serial")
 public class SlotGUI extends javax.swing.JFrame implements Observer {
-
+    
     private final SlotManager slotManager;
     private Timer stopwatch;
+    private Score money;
 
     /**
      * Creates new form SlotGUI
@@ -33,17 +37,16 @@ public class SlotGUI extends javax.swing.JFrame implements Observer {
      */
     public SlotGUI(SlotManager sm) {
         //this.setLocationRelativeTo(null);
+        this.money = new Score();
         this.initComponents();
+        this.setFocusable(true);
         this.slot1.setIcon(sm.getSlot1().getIcon());
         this.slot2.setIcon(sm.getSlot2().getIcon());
         this.slot3.setIcon(sm.getSlot3().getIcon());
 
         slotManager = sm;
-        stopwatch = new Timer(3000, new MyTimerListener(playButton));
-        stopwatch.setRepeats(false);
         this.playButton.addActionListener((ActionEvent e) -> {
             playButton.setEnabled(false);
-            stopwatch.start();
         });
     }
 
@@ -97,18 +100,25 @@ public class SlotGUI extends javax.swing.JFrame implements Observer {
         this.slot3.setIcon(sm.getSlot3().getIcon());
     }
 
-    private static class MyTimerListener implements ActionListener {
+    public void subtractPoints() {
+        this.changeMoney("-1.00");
+    }
 
-        JComponent target;
+    public void addPointsTwoInARow() {
+        this.changeMoney("5.00");
+    }
 
-        MyTimerListener(JComponent target) {
-            this.target = target;
-        }
+    public void addPointsThreeInARow() {
+        this.changeMoney("10.00");
+    }
+    
+    private void changeMoney(String string){
+        money.changeMoney(string);
+        this.scoreLabel.setText(money.toString());
+    }
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            target.setEnabled(true);
-        }
+    public void finishedPlaying() {
+        this.playButton.setEnabled(true);
     }
 
     /**
@@ -127,12 +137,20 @@ public class SlotGUI extends javax.swing.JFrame implements Observer {
         slot3 = new javax.swing.JLabel();
         slot1 = new javax.swing.JLabel();
         slot2 = new javax.swing.JLabel();
+        scoreLabel = new javax.swing.JLabel();
+        currencyLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Slot Machines");
         setBackground(new java.awt.Color(255, 102, 102));
         setForeground(java.awt.Color.black);
+        setPreferredSize(new java.awt.Dimension(900, 500));
         setResizable(false);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                formKeyReleased(evt);
+            }
+        });
 
         slot1Hold.setLabel("Hold");
         slot1Hold.addActionListener(new java.awt.event.ActionListener() {
@@ -157,6 +175,7 @@ public class SlotGUI extends javax.swing.JFrame implements Observer {
         });
 
         playButton.setLabel("Play");
+        playButton.setPreferredSize(new java.awt.Dimension(50, 20));
         playButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 playButtonActionPerformed(evt);
@@ -169,6 +188,23 @@ public class SlotGUI extends javax.swing.JFrame implements Observer {
 
         slot2.setText("jLabel2");
 
+        scoreLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        scoreLabel.setText("jLabel1");
+        this.scoreLabel.setText(this.money.toString());
+        scoreLabel.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                scoreLabelPropertyChange(evt);
+            }
+        });
+
+        currencyLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        currencyLabel.setText("€");
+        currencyLabel.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                currencyLabelPropertyChange(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -176,28 +212,39 @@ public class SlotGUI extends javax.swing.JFrame implements Observer {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(107, 107, 107)
-                        .addComponent(slot1Hold, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(130, 130, 130)
-                        .addComponent(slot2Hold, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(139, 139, 139)
-                        .addComponent(slot3Hold, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(350, 350, 350)
+                        .addComponent(playButton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(slot1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(100, 100, 100)
-                        .addComponent(slot2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(100, 100, 100)
-                        .addComponent(slot3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(149, 149, 149)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(slot1Hold, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(130, 130, 130)
+                                .addComponent(slot2Hold, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(139, 139, 139)
+                                .addComponent(slot3Hold, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(slot1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(100, 100, 100)
+                                .addComponent(slot2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(100, 100, 100)
+                                .addComponent(slot3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(287, 287, 287)
-                        .addComponent(playButton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(216, Short.MAX_VALUE))
+                        .addGap(724, 724, 724)
+                        .addComponent(scoreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(currencyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(120, 120, 120)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(scoreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(currencyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(slot3, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(slot1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,7 +256,7 @@ public class SlotGUI extends javax.swing.JFrame implements Observer {
                     .addComponent(slot1Hold))
                 .addGap(55, 55, 55)
                 .addComponent(playButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addGap(113, 113, 113))
         );
 
         slot1Hold.getAccessibleContext().setAccessibleName("slot1Hold");
@@ -217,6 +264,8 @@ public class SlotGUI extends javax.swing.JFrame implements Observer {
         slot3Hold.getAccessibleContext().setAccessibleName("slot3Hold");
         playButton.getAccessibleContext().setAccessibleName("playButton");
         playButton.getAccessibleContext().setAccessibleDescription("");
+        scoreLabel.getAccessibleContext().setAccessibleName("scoreLabel");
+        scoreLabel.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -226,7 +275,7 @@ public class SlotGUI extends javax.swing.JFrame implements Observer {
         this.slotManager.spin();
         this.slot1.setIcon(slotManager.getSlot1().getIcon());
         this.slot2.setIcon(slotManager.getSlot2().getIcon());
-        this.slot3.setIcon(slotManager.getSlot3().getIcon());
+        this.slot3.setIcon(slotManager.getSlot3().getIcon()); 
 
     }//GEN-LAST:event_playButtonActionPerformed
 
@@ -254,8 +303,38 @@ public class SlotGUI extends javax.swing.JFrame implements Observer {
         slotManager.getSlot3().setHold(true);
     }//GEN-LAST:event_slot3HoldActionPerformed
 
+    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_1:
+                click(slot1Hold);
+                return;
+            case KeyEvent.VK_2:
+                click(slot2Hold);
+                return;
+            case KeyEvent.VK_3:
+                click(slot3Hold);
+                return;
+            case KeyEvent.VK_ENTER:
+                click(playButton);
+        }
+    }//GEN-LAST:event_formKeyReleased
+
+    private void scoreLabelPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_scoreLabelPropertyChange
+//        if(!this.money.hasMoney()){
+//            this.playButton.setEnabled(false);
+//        }else{
+//            this.playButton.setEnabled(true);
+//        }
+    }//GEN-LAST:event_scoreLabelPropertyChange
+
+    private void currencyLabelPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_currencyLabelPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_currencyLabelPropertyChange
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel currencyLabel;
     private javax.swing.JButton playButton;
+    private javax.swing.JLabel scoreLabel;
     private javax.swing.JLabel slot1;
     private javax.swing.JToggleButton slot1Hold;
     private javax.swing.JLabel slot2;
